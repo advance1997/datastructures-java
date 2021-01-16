@@ -28,42 +28,45 @@ package com.advance.leetcode.simple;
 public class SearchInsert {
 
     public static void main(String[] args) {
-        int[] arrs = {1};
-        int target = 2;
-        System.out.println(searchInsert(arrs, target));
+        int[] arrs = {1,2,3,5,6,8};
+        int target = 7;
+        System.out.println(searchInsertBinary(arrs, target));
     }
 
     /**
-     * 二分法
+     * 二分法插入寻找插入位置，借用二分法查找思想
+     * 使用left，right，mid定位具体位置
      * @param nums
      * @param target
      * @return
      */
-    private static int searchInsert(int[] nums, int target){
-//        int right = nums.length - 1;
-//        int left = 0;
-//        while(){
-//
-//        }
-    }
-
-    private static int searchInsert1(int[] nums, int target){
-        int index = 0;
-        int j = 0;
-        for(int i = 0; i < nums.length;i++){
-            if(nums[j] > target){
-                index = j;
-                break;
-            }else if(nums[j] < target && nums[i] >= target){
-                index = i;
-                break;
-            }else if(nums[nums.length - 1] < target ){
-                index = nums.length;
-                break;
+    private static int searchInsertBinary(int[] nums, int target){
+        int left = 0;
+        int right = nums.length - 1;
+        int mid;
+        while(left <= right){
+            mid = (left + right) / 2;
+            if(nums[mid] > target){
+                right = mid - 1;
+            }else if(nums[mid] < target){
+                left = mid + 1;
+            }else{
+                return mid;
             }
-            j++;
         }
-        return index;
+        return left;
     }
 
+
+    private static int searchInsert2(int[] nums, int target){
+        if(nums.length == 0) {
+            return 0;
+        }
+        for(int i = 0; i <nums.length; i++){
+            if(nums[i] >= target){
+                return i;
+            }
+        }
+        return nums.length;
+    }
 }
