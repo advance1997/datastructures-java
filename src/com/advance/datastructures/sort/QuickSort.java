@@ -1,6 +1,6 @@
 package com.advance.datastructures.sort;
 
-import java.util.Arrays;
+import java.util.Random;
 
 /**
  * @program: DataStructures
@@ -22,9 +22,22 @@ import java.util.Arrays;
 public class QuickSort {
 
     public static void main(String[] args) {
-        int[] arrs = {3,44,38,5,47,15,36,26,27,2,46,4,19,50,48};
-        quickSort(arrs, 0, arrs.length - 1);
-        System.out.println(Arrays.toString(arrs));
+        int n = 100000;
+//        int[] nums = {16,7,3,20,17,8};
+        int[] nums = generatorArrs(n);
+        long start = System.currentTimeMillis();
+        quickSort(nums, 0, n - 1);
+        long end = System.currentTimeMillis();
+        long time = end - start;
+        System.out.println("快速排序对"+n+"个数值进行排序花费时间为："+time+"毫秒");
+    }
+
+    private static int[] generatorArrs(int n){
+        int[] arrs = new int[n];
+        for(int i = 0; i < n; i++){
+            arrs[i] = new Random().nextInt(10);
+        }
+        return arrs;
     }
 
     private static int[] quickSort(int[] arr, int left, int right) {
